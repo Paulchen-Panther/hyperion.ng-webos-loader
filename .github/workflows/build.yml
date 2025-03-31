@@ -85,6 +85,8 @@ jobs:
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
             -DCMAKE_BUILD_TYPE=Release \
+            -DHYPERION_LIGHT=ON \
+            -DENABLE_FLATBUF_SERVER=ON \
             -G Ninja
           cmake --build . --target flatc
           popd
