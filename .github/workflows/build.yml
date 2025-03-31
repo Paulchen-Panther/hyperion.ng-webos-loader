@@ -76,20 +76,20 @@ jobs:
           sudo apt update
           sudo apt install -y ${{ env.apt_deps }}
 
-      - name: Build native flatbuffer compiler
-        env:
-          CCACHE_DIR: ${{ github.workspace }}/${{ env.CCACHE_DIR_NATIVE }}
-        run: |
-          pushd -- "./${{ env.BUILD_DIR_NATIVE }}"
-          cmake .. \
-            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DHYPERION_LIGHT=ON \
-            -DENABLE_FLATBUF_SERVER=ON \
-            -G Ninja
-          cmake --build . --target flatc
-          popd
+      # - name: Build native flatbuffer compiler
+      #   env:
+      #     CCACHE_DIR: ${{ github.workspace }}/${{ env.CCACHE_DIR_NATIVE }}
+      #   run: |
+      #     pushd -- "./${{ env.BUILD_DIR_NATIVE }}"
+      #     cmake .. \
+      #       -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+      #       -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+      #       -DCMAKE_BUILD_TYPE=Release \
+      #       -DHYPERION_LIGHT=ON \
+      #       -DENABLE_FLATBUF_SERVER=ON \
+      #       -G Ninja
+      #     cmake --build . --target flatc
+      #     popd
 
       - name: Build cross (webos arm)
         env:
@@ -119,9 +119,7 @@ jobs:
             -DENABLE_FLATBUF_SERVER=ON \
             -DENABLE_PROTOBUF_SERVER=OFF \
             -DENABLE_FORWARDER=ON \
-            -DENABLE_FLATBUF_CONNECT=ON \
-            -DIMPORT_FLATC="${GITHUB_WORKSPACE}/hyperion.ng/${BUILD_DIR_NATIVE}/flatc_export.cmake"
-          ls
+            -DENABLE_FLATBUF_CONNECT=ON
           make
           popd
 
