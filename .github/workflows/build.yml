@@ -119,8 +119,9 @@ jobs:
             -DENABLE_FLATBUF_SERVER=ON \
             -DENABLE_PROTOBUF_SERVER=OFF \
             -DENABLE_FORWARDER=ON \
-            -DENABLE_FLATBUF_CONNECT=ON
-          make
+            -DENABLE_FLATBUF_CONNECT=ON \
+            -G Ninja
+          cmake --build .
           popd
 
       - name: Copy built binaries to release/
