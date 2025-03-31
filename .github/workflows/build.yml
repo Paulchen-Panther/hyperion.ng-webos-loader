@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: paulchen-panther/hyperion.ng
-          # ref: Refactor
+          ref: deps
           path: hyperion.ng
           submodules: recursive
           fetch-depth: 0
@@ -102,7 +102,6 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE="${TOOLCHAIN_FILE}" \
             -DCMAKE_BUILD_TYPE=Release \
             -DPLATFORM=rpi \
-            -DENABLE_DEV_USB_HID=OFF \
             -DENABLE_DEV_FTDI=OFF \
             -DHYPERION_LIGHT=ON \
             -DENABLE_REMOTE_CTL=ON \
@@ -111,6 +110,7 @@ jobs:
             -DENABLE_EFFECTENGINE=OFF \
             -DENABLE_JSONCHECKS=OFF \
             -DENABLE_DEV_SERIAL=ON \
+            -DENABLE_DEV_USB_HID=ON \
             -DENABLE_DEV_WS281XPWM=OFF \
             -DENABLE_DEV_TINKERFORGE=ON \
             -DENABLE_MDNS=ON \
