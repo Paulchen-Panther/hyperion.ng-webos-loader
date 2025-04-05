@@ -10,11 +10,9 @@ env:
   TOOLCHAIN_DIR: /opt/arm-webos-linux-gnueabi_sdk-buildroot
   TOOLCHAIN_ENV_FILE: /opt/arm-webos-linux-gnueabi_sdk-buildroot/environment-setup
   TOOLCHAIN_FILE: /opt/arm-webos-linux-gnueabi_sdk-buildroot/share/buildroot/toolchainfile.cmake
-  BUILD_DIR_NATIVE: build-x86x64
-  BUILD_DIR_CROSS: build-cross
+  BUILD_DIR: build
 
-  CCACHE_DIR_NATIVE: .ccache-build-x86x64
-  CCACHE_DIR_CROSS: .ccache-build-cross
+  CCACHE_DIR: .ccache-build
   CCACHE_COMPRESS: true
   CCACHE_COMPRESSLEVEL: 6
   CCACHE_MAXSIZE: 600M
@@ -38,18 +36,9 @@ jobs:
       - name: Restore/Cache build directories
         uses: actions/cache@v4
         with:
-          path: |
-            ${{ github.workspace }}/${{ env.CCACHE_DIR_NATIVE }}
-            ${{ github.workspace }}/${{ env.CCACHE_DIR_CROSS }}
-
+          path: ${{ github.workspace }}/${{ env.CCACHE_DIR }}
           key: ccache-${{ runner.os }}-${{github.run_id}}
-          restore-keys: |
-            ccache-${{ runner.os }}
-
-      - name: Create build directories
-        run: |
-          mkdir -p -- "./${{ env.BUILD_DIR_NATIVE }}"
-          mkdir -p -- "./${{ env.BUILD_DIR_CROSS }}"
+          restore-keys: ccache-${{ runner.os }}
 
       - name: Cache toolchain dir
         id: cache-toolchain
@@ -76,26 +65,12 @@ jobs:
           sudo apt update
           sudo apt install -y ${{ env.apt_deps }}
 
-      # - name: Build native flatbuffer compiler
-      #   env:
-      #     CCACHE_DIR: ${{ github.workspace }}/${{ env.CCACHE_DIR_NATIVE }}
-      #   run: |
-      #     pushd -- "./${{ env.BUILD_DIR_NATIVE }}"
-      #     cmake .. \
-      #       -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-      #       -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-      #       -DCMAKE_BUILD_TYPE=Release \
-      #       -DHYPERION_LIGHT=ON \
-      #       -DENABLE_FLATBUF_SERVER=ON \
-      #       -G Ninja
-      #     cmake --build . --target flatc
-      #     popd
-
-      - name: Build cross (webos arm)
+      - name: Build
         env:
-          CCACHE_DIR: ${{ github.workspace }}/${{ env.CCACHE_DIR_CROSS }}
+          CCACHE_DIR: ${{ github.workspace }}/${{ env.CCACHE_DIR }}
         run: |
-          pushd -- "./${{ env.BUILD_DIR_CROSS }}"
+          mkdir -p -- "./${{ env.BUILD_DIR }}"
+          pushd -- "./${{ env.BUILD_DIR }}"
           cmake .. \
             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
@@ -127,7 +102,7 @@ jobs:
       - name: Copy built binaries to release/
         run: |
           rm -rf ./release
-          cp -r -T -- "./${{ env.BUILD_DIR_CROSS }}/bin" ./release
+          cp -r -T -- "./${{ env.BUILD_DIR }}/bin" ./release
           find ./release
 
       - name: Copy dependencies to release/
