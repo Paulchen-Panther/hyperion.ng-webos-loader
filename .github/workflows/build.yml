@@ -57,12 +57,8 @@ jobs:
           popd
           find -- "${TOOLCHAIN_DIR}/bin" -type f -iname 'perl*' -delete
 
-      - name: Install native dependencies
-        env:
-          apt_deps: ccache git cmake ninja-build build-essential libudev-dev qtbase5-dev libqt5serialport5-dev libqt5websockets5-dev libqt5sql5-sqlite libqt5svg5-dev libqt5x11extras5-dev libftdi1-dev python3-dev libxcb-image0-dev libxcb-util0-dev libxcb-shm0-dev libxcb-render0-dev libxcb-randr0-dev libxrandr-dev libxrender-dev libturbojpeg0-dev libssl-dev libmbedtls-dev
-        run: |
-          sudo apt update
-          sudo apt install -y ${{ env.apt_deps }}
+      - name: Install dependencies
+        run: sudo apt-get update & sudo apt-get install -y ccache
 
       - name: Build
         env:
@@ -81,8 +77,8 @@ jobs:
             -DENABLE_REMOTE_CTL=ON \
             -DENABLE_QT=OFF \
             -DENABLE_AUDIO=OFF \
-            -DENABLE_EFFECTENGINE=OFF \
-            -DENABLE_JSONCHECKS=OFF \
+            -DENABLE_EFFECTENGINE=ON \
+            -DENABLE_JSONCHECKS=ON \
             -DENABLE_DEV_SERIAL=ON \
             -DENABLE_DEV_USB_HID=ON \
             -DENABLE_DEV_WS281XPWM=OFF \
