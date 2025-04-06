@@ -14,7 +14,7 @@ env:
 
 jobs:
   build_hyperion_ng:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./hyperion.ng
