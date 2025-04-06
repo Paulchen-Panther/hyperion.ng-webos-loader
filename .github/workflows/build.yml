@@ -47,10 +47,12 @@ jobs:
 
       - name: Build
         run: |
+          "./${{ env.TOOLCHAIN_ENV_FILE }}"
           mkdir -p -- "./${{ env.BUILD_DIR }}"
           pushd -- "./${{ env.BUILD_DIR }}"
           cmake .. \
             -DCMAKE_TOOLCHAIN_FILE="${TOOLCHAIN_FILE}" \
+            -D
             -DCMAKE_BUILD_TYPE=Release \
             -DPLATFORM=rpi \
             -DENABLE_DEV_FTDI=OFF \
