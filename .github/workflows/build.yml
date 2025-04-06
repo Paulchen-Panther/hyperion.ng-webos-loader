@@ -27,7 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: hyperion-project/hyperion.ng
+          repository: lord-grey/hyperion.ng
+          ref: Refactor
           path: hyperion.ng
           submodules: recursive
           fetch-depth: 0
@@ -57,7 +58,7 @@ jobs:
           popd
           find -- "${TOOLCHAIN_DIR}/bin" -type f -iname 'perl*' -delete
 
-      - name: Install CCache & remove python3
+      - name: Install ccache & remove python3
         run: |
           sudo apt update && sudo apt install -y ccache
           sudo apt-get purge -y python3-dev
