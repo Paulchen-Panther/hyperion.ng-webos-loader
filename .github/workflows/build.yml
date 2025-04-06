@@ -27,8 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: lord-grey/hyperion.ng
-          ref: Refactor
+          repository: hyperion-project/hyperion.ng
           path: hyperion.ng
           submodules: recursive
           fetch-depth: 0
@@ -80,8 +79,8 @@ jobs:
             -DENABLE_REMOTE_CTL=ON \
             -DENABLE_QT=OFF \
             -DENABLE_AUDIO=OFF \
-            -DENABLE_EFFECTENGINE=OFF \
-            -DENABLE_JSONCHECKS=OFF \
+            -DENABLE_EFFECTENGINE=ON \
+            -DENABLE_JSONCHECKS=ON \
             -DENABLE_DEV_SERIAL=ON \
             -DENABLE_DEV_USB_HID=ON \
             -DENABLE_DEV_WS281XPWM=OFF \
