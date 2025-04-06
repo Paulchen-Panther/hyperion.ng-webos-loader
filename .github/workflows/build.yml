@@ -51,7 +51,7 @@ jobs:
           pushd -- "./${{ env.BUILD_DIR }}"
           cmake .. \
             -DCMAKE_TOOLCHAIN_FILE="${TOOLCHAIN_FILE}" \
-            -DCMAKE_PREFIX_PATH="${TOOLCHAIN_DIR}/bin" \
+            -DPython3_EXECUTABLE="${TOOLCHAIN_DIR}/bin/python3" \
             -DCMAKE_BUILD_TYPE=Release \
             -DPLATFORM=rpi \
             -DENABLE_DEV_FTDI=OFF \
