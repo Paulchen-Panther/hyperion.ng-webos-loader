@@ -60,7 +60,7 @@ jobs:
       - name: Install CCache & remove python3
         run: |
           sudo apt update && sudo apt install -y ccache
-          sudo apt remove python3
+          sudo apt-get purge -y python3-dev
 
       - name: Build
         env:
