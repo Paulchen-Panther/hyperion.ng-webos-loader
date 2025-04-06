@@ -47,7 +47,7 @@ jobs:
 
       - name: Build
         run: |
-          "./${{ env.TOOLCHAIN_ENV_FILE }}"
+          "${{ env.TOOLCHAIN_ENV_FILE }}
           mkdir -p -- "./${{ env.BUILD_DIR }}"
           pushd -- "./${{ env.BUILD_DIR }}"
           cmake .. \
