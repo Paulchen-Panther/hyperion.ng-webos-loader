@@ -19,7 +19,7 @@ env:
 jobs:
 
   build_sdk:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ github.workspace }}/buildroot-nc4
