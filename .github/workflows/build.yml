@@ -19,7 +19,7 @@ env:
 jobs:
 
   build_sdk:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     defaults:
       run:
         working-directory: ${{ github.workspace }}/buildroot-nc4
@@ -50,6 +50,7 @@ jobs:
           echo "BR2_PACKAGE_QT5=n" >> .config
           echo "BR2_PACKAGE_QT6=y" >> .config
           echo "BR2_PACKAGE_QT6BASE_GUI=y" >> .config
+          echo "BR2_PACKAGE_QT6BASE_SQL=y" >> .config
           echo "BR2_PACKAGE_QT6BASE_NETWORK=y" >> .config
           echo "BR2_PACKAGE_QT6BASE_OPENGL=y" >> .config
           echo "BR2_PACKAGE_QT6SERIALPORT=y" >> .config
