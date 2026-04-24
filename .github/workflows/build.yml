@@ -171,12 +171,16 @@ jobs:
 
           for i in ${{ env.qt6_libs }}; do
             result=$(find "${{ env.SYSROOT }}/usr/local/qt6/lib/" \
-              -name "${i}*" 2>/dev/null)
+              -name "${i}*" -type l 2>/dev/null)
             if [ -z "$result" ]; then
               echo "NOT FOUND in Qt6: ${i}"
             else
-              echo "Copy ${result}"
-              echo "$result" | xargs -I{} cp -P -t ./release {}
+              while IFS= read -r symlink; do
+                realfile=$(readlink -f "$symlink")
+                linkname=$(basename "$symlink")
+                echo "Copy ${realfile} as ${linkname}"
+                cp "$realfile" "./release/${linkname}"
+              done <<< "$result"
             fi
           done
 
