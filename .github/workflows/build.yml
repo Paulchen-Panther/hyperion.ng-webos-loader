@@ -132,9 +132,7 @@ jobs:
         env:
           dependency_libs: >-
             libpython3.10.so.1.0 libpng16.so.16 libjpeg.so.8 libcrypt.so.1 libcrypto.so.1.1 
-            libz.so.1 libssl.so.1.1 libpcre2-16.so.0 libk5crypto.so.3 
-            libkrb5support.so.0 libcom_err.so.3 libkrb5.so.3 
-            libgssapi_krb5.so.2 libusb-1.0.so.0 libftdi1.so.2 libudev.so.1
+            libz.so.1 libssl.so.1.1 libpcre2-16.so.0 libusb-1.0.so.0 libftdi1.so.2 libudev.so.1
           gcc_runtime_libs: >-
             libstdc++.so.6 libatomic.so.1
           qt6_libs: >-
@@ -149,11 +147,12 @@ jobs:
             result=$(find \
               "${{ env.SYSROOT }}/usr/lib/" \
               "${{ env.SYSROOT }}/lib/" \
-              -name "${i}" 2>/dev/null)
+              -name "${i}" 2>/dev/null | head -1)
             if [ -z "$result" ]; then
-              echo "${i} NOT FOUND in sysroot"
+              echo "NOT FOUND in sysroot: ${i}"
             else
-              echo "$result" | xargs -I{} cp -P -t ./release {}
+              echo "Copy ${result}"
+              cp -L "$result" ./release/"${i}"
             fi
           done
 
@@ -163,19 +162,20 @@ jobs:
               "${{ env.TOOLCHAIN_DIR }}/lib/gcc/" \
               -name "${i}" 2>/dev/null | head -1)
             if [ -z "$result" ]; then
-              echo "${i} NOT FOUND in toolchain"
+              echo "NOT FOUND in toolchain: ${i}"
             else
-              cp -P "$result" ./release/
+              echo "Copy ${result}"
+              cp -L "$result" ./release/"${i}"
             fi
           done
 
           for i in ${{ env.qt6_libs }}; do
-            result=$(find \
-              "${{ env.SYSROOT }}/usr/local/qt6/lib/"
+            result=$(find "${{ env.SYSROOT }}/usr/local/qt6/lib/" \
               -name "${i}*" 2>/dev/null)
             if [ -z "$result" ]; then
-              echo "${i} NOT FOUND in Qt6"
+              echo "NOT FOUND in Qt6: ${i}"
             else
+              echo "Copy ${result}"
               echo "$result" | xargs -I{} cp -P -t ./release {}
             fi
           done
