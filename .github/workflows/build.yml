@@ -94,17 +94,20 @@ jobs:
       - name: Build Hyperion
         working-directory: hyperion.ng
         run: |
+          {
           echo ''
           echo '# For CPack'
-          echo 'set(CPACK_READELF_EXECUTABLE "${RELOCATED_HOST_DIR}/bin/arm-webos-linux-gnueabi-readelf")'
-          echo 'set(CPACK_OBJCOPY_EXECUTABLE "${RELOCATED_HOST_DIR}/bin/arm-webos-linux-gnueabi-objcopy")'
-          echo 'set(CPACK_OBJDUMP_EXECUTABLE "${RELOCATED_HOST_DIR}/bin/arm-webos-linux-gnueabi-objdump")'
+          echo 'set(CMAKE_READELF "${RELOCATED_HOST_DIR}/bin/arm-webos-linux-gnueabi-readelf")'
+          echo 'set(CMAKE_OBJDUMP "${RELOCATED_HOST_DIR}/bin/arm-webos-linux-gnueabi-objdump")'
+          echo 'set(CMAKE_OBJCOPY "${RELOCATED_HOST_DIR}/bin/arm-webos-linux-gnueabi-objcopy")'
           } >> ${{ env.TOOLCHAIN_FILE }}
           cmake \
             -B "${{ env.BUILD_DIR }}" \
             -G Ninja \
             -DCMAKE_INSTALL_PREFIX=./release \
             -DCMAKE_TOOLCHAIN_FILE="${{ env.TOOLCHAIN_FILE }}" \
+            -DCMAKE_OBJDUMP="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objdump" \
+            -DCMAKE_OBJCOPY="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objcopy" \
             -DQT_HOST_PATH="${{ env.QT_TOOLCHAIN_DIR }}" \
             -DCMAKE_PREFIX_PATH="${{ env.SYSROOT }}/usr/local/qt6" \
             -DPython3_EXECUTABLE="${{ env.TOOLCHAIN_DIR }}/bin/python3" \
