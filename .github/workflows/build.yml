@@ -99,6 +99,8 @@ jobs:
             -G Ninja \
             -DCMAKE_INSTALL_PREFIX=./release \
             -DCMAKE_TOOLCHAIN_FILE="${{ env.TOOLCHAIN_FILE }}" \
+            -DCMAKE_OBJDUMP="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objdump" \
+            -DCMAKE_OBJCOPY="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objcopy" \
             -DQT_HOST_PATH="${{ env.QT_TOOLCHAIN_DIR }}" \
             -DCMAKE_PREFIX_PATH="${{ env.SYSROOT }}/usr/local/qt6" \
             -DPython3_EXECUTABLE="${{ env.TOOLCHAIN_DIR }}/bin/python3" \
@@ -119,7 +121,8 @@ jobs:
             -DENABLE_FLATBUF_SERVER=ON \
             -DENABLE_PROTOBUF_SERVER=OFF \
             -DENABLE_FORWARDER=ON \
-            -DENABLE_FLATBUF_CONNECT=ON 
+            -DENABLE_FLATBUF_CONNECT=ON \
+            -
           ninja -C "${{ env.BUILD_DIR }}" install
 
   #     - name: Copy built binaries and dependencies to release/
