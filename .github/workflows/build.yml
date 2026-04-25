@@ -106,8 +106,6 @@ jobs:
             -G Ninja \
             -DCMAKE_INSTALL_PREFIX=./release \
             -DCMAKE_TOOLCHAIN_FILE="${{ env.TOOLCHAIN_FILE }}" \
-            -DCMAKE_OBJDUMP="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objdump" \
-            -DCMAKE_OBJCOPY="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objcopy" \
             -DQT_HOST_PATH="${{ env.QT_TOOLCHAIN_DIR }}" \
             -DCMAKE_PREFIX_PATH="${{ env.SYSROOT }}/usr/local/qt6" \
             -DPython3_EXECUTABLE="${{ env.TOOLCHAIN_DIR }}/bin/python3" \
