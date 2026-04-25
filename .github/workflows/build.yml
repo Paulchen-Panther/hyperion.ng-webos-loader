@@ -119,7 +119,7 @@ jobs:
             -DENABLE_FLATBUF_SERVER=ON \
             -DENABLE_PROTOBUF_SERVER=OFF \
             -DENABLE_FORWARDER=ON \
-            -DENABLE_FLATBUF_CONNECT=ON \
+            -DENABLE_FLATBUF_CONNECT=ON 
           ninja install
 
   #     - name: Copy built binaries and dependencies to release/
