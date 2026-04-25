@@ -120,7 +120,7 @@ jobs:
             -DENABLE_PROTOBUF_SERVER=OFF \
             -DENABLE_FORWARDER=ON \
             -DENABLE_FLATBUF_CONNECT=ON 
-          ninja install
+          ninja -C "${{ env.BUILD_DIR }}" install
 
   #     - name: Copy built binaries and dependencies to release/
   #       env:
