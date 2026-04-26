@@ -98,7 +98,8 @@ jobs:
             -B "${{ env.BUILD_DIR }}" \
             -G Ninja \
             -DCMAKE_INSTALL_PREFIX=./release \
-            -DCMAKE_OBJDUMP="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objdump" \
+            -DCMAKE_GET_RUNTIME_DEPENDENCIES_TOOL="objdump" \
+            -DCMAKE_GET_RUNTIME_DEPENDENCIES_COMMAND="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objdump" \
             -DCMAKE_TOOLCHAIN_FILE="${{ env.TOOLCHAIN_FILE }}" \
             -DQT_HOST_PATH="${{ env.QT_TOOLCHAIN_DIR }}" \
             -DCMAKE_PREFIX_PATH="${{ env.SYSROOT }}/usr/local/qt6" \
