@@ -101,6 +101,7 @@ jobs:
             -DCMAKE_GET_RUNTIME_DEPENDENCIES_TOOL="objdump" \
             -DCMAKE_GET_RUNTIME_DEPENDENCIES_COMMAND="${{ env.TOOLCHAIN_DIR }}/bin/arm-webos-linux-gnueabi-objdump" \
             -DCMAKE_TOOLCHAIN_FILE="${{ env.TOOLCHAIN_FILE }}" \
+            -DQT_HOST_PATH="${{ env.QT_TOOLCHAIN_DIR }}" \
             -DQTDIR="${{ env.SYSROOT }}/usr/local/qt6" \
             -DPython3_EXECUTABLE="${{ env.TOOLCHAIN_DIR }}/bin/python3" \
             -DCMAKE_BUILD_TYPE=Release \
