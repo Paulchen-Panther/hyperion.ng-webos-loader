@@ -186,6 +186,7 @@ jobs:
   #         cp -r -t ./release/python/lib -- "${{ env.SYSROOT }}/usr/lib/python3.10"/* 2>/dev/null || true
 
       - name: Upload artifacts
+        working-directory: hyperion.ng
         uses: actions/upload-artifact@v4
         with:
           name: hyperion.ng-webos-binaries
